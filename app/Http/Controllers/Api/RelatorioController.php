@@ -40,4 +40,29 @@ class RelatorioController extends Controller{
         return response()->json(['total'=> $total, 'cumpridas' => $cumpridas, 'porcentagem' => $porcentagem]);    
     }
 
+    public function categorias_metas(){
+        $usuario = Auth::user();
+
+        $numero = Meta::where("usuario_id", $usuario->id)->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
+
+        return response()->json([
+            'categorias' => $numero
+        ]);
+    }
+
+    public function categorias_tarefas(){
+        $usuario = Auth::user();
+
+        $numero = Tarefa::where("usuario_id", $usuario->id)->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
+
+        return response()->json([
+            'categorias' => $numero
+        ]);
+    }
+
+    public function semana_produtiva(){}
+
+    public function mes_produtivo(){}
+
+    public function turno_produtivo(){}
 }

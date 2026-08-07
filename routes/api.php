@@ -43,4 +43,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/relatorios/metas', [RelatorioController::class, 'metas']);
     Route::get('/relatorios/tarefas', [RelatorioController::class, 'tarefas']);
+    Route::get('/relatorios/categorias/metas', [RelatorioController::class, 'categorias_metas']);
+    Route::get('/relatorios/categorias/tarefas', [RelatorioController::class, 'categorias_tarefas']);
 });
