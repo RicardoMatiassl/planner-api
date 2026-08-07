@@ -71,7 +71,16 @@ class RelatorioController extends Controller{
         ]);
     }
 
-    public function mes_produtivo(){}
+    public function mes_produtivo(){
+        $usuario = Auth::user();
+
+        $meses = Tarefa::where("usuario_id", $usuario->id)->where("status", "CUMPRIDA")->selectRaw("MONTH(data) as mes")
+        ->selectRaw("COUNT(*) as total")->groupBy("mes")->orderBy("total", "desc")->get();
+
+        return response()->json([
+            "meses" => $meses
+        ]);
+    }
 
     public function turno_produtivo(){}
 }

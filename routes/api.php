@@ -43,7 +43,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/relatorios/metas', [RelatorioController::class, 'metas']);
     Route::get('/relatorios/tarefas', [RelatorioController::class, 'tarefas']);
+    
     Route::get('/relatorios/categorias/metas', [RelatorioController::class, 'categorias_metas']);
     Route::get('/relatorios/categorias/tarefas', [RelatorioController::class, 'categorias_tarefas']);
+    
     Route::get('/relatorios/produtivo/semana', [RelatorioController::class, 'semana_produtiva']);
+    Route::get('/relatorios/produtivo/mes', [RelatorioController::class, 'mes_produtivo']);
 });
