@@ -49,4 +49,5 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/relatorios/produtivo/semana', [RelatorioController::class, 'semana_produtiva']);
     Route::get('/relatorios/produtivo/mes', [RelatorioController::class, 'mes_produtivo']);
+    Route::get('/relatorios/produtivo/turno', [RelatorioController::class, 'turno_produtivo']);
 });

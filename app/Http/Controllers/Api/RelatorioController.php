@@ -82,5 +82,14 @@ class RelatorioController extends Controller{
         ]);
     }
 
-    public function turno_produtivo(){}
+    public function turno_produtivo(){
+        $usuario = Auth::user();
+
+        $turnos = Tarefa::where("usuario_id", $usuario->id)->where("status", "CUMPRIDA")->selectRaw("turno, COUNT(*) as total")
+        ->groupBy("turno")->orderBy("total", "desc")->get();
+
+        return response()->json([
+            "turnos" => $turnos
+        ]);
+    }
 }
