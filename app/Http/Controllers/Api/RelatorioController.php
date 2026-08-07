@@ -43,7 +43,7 @@ class RelatorioController extends Controller{
     public function categorias_metas(){
         $usuario = Auth::user();
 
-        $numero = Meta::where("usuario_id", $usuario->id)->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
+        $numero = Meta::where("usuario_id", $usuario->id)->where("status", "CUMPRIDA")->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
 
         return response()->json([
             'categorias' => $numero
@@ -53,14 +53,28 @@ class RelatorioController extends Controller{
     public function categorias_tarefas(){
         $usuario = Auth::user();
 
-        $numero = Tarefa::where("usuario_id", $usuario->id)->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
+        $numero = Tarefa::where("usuario_id", $usuario->id)->where("status", "CUMPRIDA")->selectRaw("categoria_id, COUNT(*) as numero")->groupBy("categoria_id")->with("categoria")->get();
 
         return response()->json([
             'categorias' => $numero
         ]);
     }
 
-    public function semana_produtiva(){}
+    public function semana_produtiva(){
+        $usuario = Auth::user();
+
+        $semanas = Tarefa::where('usuario_id', $usuario->id)
+            ->where('status', 'CONCLUIDA')
+            ->selectRaw('WEEK(data) as semana')
+            ->selectRaw('COUNT(*) as total')
+            ->groupBy('semana')
+            ->orderByDesc('total')
+            ->get();
+
+        return response()->json([
+            'semanas' => $semanas
+        ]);
+    }
 
     public function mes_produtivo(){}
 
