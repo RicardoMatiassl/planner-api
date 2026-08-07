@@ -42,4 +42,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('tarefas', TarefaController::class);
 
     Route::get('/relatorios/metas', [RelatorioController::class, 'metas']);
+    Route::get('/relatorios/tarefas', [RelatorioController::class, 'tarefas']);
 });
