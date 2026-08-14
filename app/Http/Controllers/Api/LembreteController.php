@@ -127,7 +127,7 @@ class LembreteController extends Controller
 
         $dados = $request->validated();
 
-        if (!$dados['recorrente']) {
+        if (array_key_exists('recorrente', $dados) && !$dados['recorrente']) {
             $dados['frequencia'] = null;
         }
 
